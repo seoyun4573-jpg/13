@@ -1,24 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void main(void) {
-    char *pc = NULL;
-    int i =0;
+struct Book{
+    int number;
+    char title[20];
+};
 
-    pc = (char *)malloc(100 * sizeof(char));
-    if (pc ==NULL) {
+int main(void) {
+    struct Book *p; //포인터 만들기
+
+    p = (struct Book *) malloc(2*sizeof(struct Book));
+
+    if (p == NULL) {
         printf("Memory allocation failed\n");
-        exit(1);
+        return -1;
     }
 
+    p->number = 1;
+    strcpy(p->title, "C Programming");
 
-    for (i=0; i<26; i++) {
-    pc[i] = 'a'+i;
-    }
+    (p+1)->number = 2;
+    strcpy((p+1)->title, "Electroics");
 
-    pc[i] = '\0';
-    printf("%s\n",pc);
-    free(pc);
+    printf("%i : %s\n", p->number, p->title);
+    printf("%i : %s\n", (p+1)->number, (p+1)->title);
 
+    free(p);
     return 0;
 }
